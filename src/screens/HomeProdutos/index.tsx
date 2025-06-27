@@ -148,8 +148,6 @@ const produtosMock = [
 ];
 
 export default function HomeProdutos() {
-  const [faixa1, setFaixa1] = useState("");
-  const [faixa2, setFaixa2] = useState("");
 
   return (
     <View style={styles.container}>
