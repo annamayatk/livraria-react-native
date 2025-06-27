@@ -1,10 +1,11 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import React from "react";
+import { Provider as PaperProvider } from "react-native-paper";
+import AppRouter from "./src/routes/AppRouter";
 
 export default function App() {
   return (
-    <View>
-      <Text>App</Text>
-    </View>
-  )
+    <PaperProvider>
+      <AppRouter />
+    </PaperProvider>
+  );
 }
