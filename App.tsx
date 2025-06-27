@@ -1,11 +1,11 @@
 import React from "react";
-import { Provider as PaperProvider } from "react-native-paper";
 import AppRouter from "./src/routes/AppRouter";
+import { NavigationContainer } from "@react-navigation/native";
 
 export default function App() {
   return (
-   
+    <NavigationContainer>
       <AppRouter />
-    
+    </NavigationContainer>
   );
 }

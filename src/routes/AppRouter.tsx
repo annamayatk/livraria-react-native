@@ -1,6 +1,5 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NavigationContainer } from "@react-navigation/native";
 import HomeProdutos from "../screens/HomeProdutos";
 import ListaDesejos from "../screens/ListaDesejos";
 import Avaliacoes from "../screens/Avaliacoes";
@@ -10,7 +9,6 @@ const Tab = createBottomTabNavigator();
 
 export default function AppRouter() {
   return (
-    <NavigationContainer>
       <Tab.Navigator
           screenOptions={{
           headerShown: false,
@@ -49,6 +47,5 @@ export default function AppRouter() {
         />
 
       </Tab.Navigator>
-    </NavigationContainer>
   );
 }
