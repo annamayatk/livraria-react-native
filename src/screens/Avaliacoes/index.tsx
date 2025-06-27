@@ -5,6 +5,7 @@ export default function Avaliacoes() {
   return (
     <View>
       <Text>Avaliações</Text>
+      <Text>Under Construction</Text>
     </View>
   )
 }

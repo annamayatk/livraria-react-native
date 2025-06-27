@@ -4,6 +4,7 @@ export default function ListaDesejos() {
   return (
     <View>
       <Text>Lista de Desejos</Text>
+      <Text>Under Construction</Text>
     </View>
   );
 }
