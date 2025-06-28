@@ -4,8 +4,7 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 interface Produto {
   id: number;
   nome: string;
-  preco: number;
-  categoria: string;
+  autor: string;
   imagem: string;
 }
 
@@ -20,12 +19,11 @@ export default function CardProduto({ produto }: Props) {
 
       <View style={styles.info}>
         <Text style={styles.nome}>{produto.nome}</Text>
-        <Text style={styles.categoria}>{produto.categoria}</Text>
-        <Text style={styles.preco}>R$ {produto.preco.toFixed(2)}</Text>
+        <Text style={styles.autor}>{produto.autor}</Text>
       </View>
 
       <TouchableOpacity style={styles.botao}>
-        <Text style={styles.botaoTexto}>ADICIONAR A LISTA DE DESEJOS ❤️</Text>
+        <Text style={styles.botaoTexto}>ADICIONAR À LISTA DE DESEJOS ❤️</Text>
       </TouchableOpacity>
     </View>
   );
@@ -50,14 +48,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
   },
-  categoria: {
+  autor: {
     fontSize: 14,
     color: "#666",
-    marginTop: 4,
-  },
-  preco: {
-    fontSize: 16,
-    color: "#000",
     marginTop: 4,
   },
   botao: {
@@ -67,6 +60,5 @@ const styles = StyleSheet.create({
   },
   botaoTexto: {
     color: "#fff",
-    
   },
 });
