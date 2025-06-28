@@ -2,6 +2,8 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeProdutos from "../screens/HomeProdutos";
 import { Feather } from "@expo/vector-icons";
+import Avaliacoes from "../screens/Avaliacoes";
+import ListaDesejos from "../screens/ListaDesejos";
 
 const Tab = createBottomTabNavigator();
 
@@ -35,7 +37,7 @@ export default function AppRouter() {
         />
 
         <Tab.Screen
-          name="Liste de Desejos"
+          name="Lista de Desejos"
           component={ListaDesejos}
           options={{
             tabBarIcon: ({ color, size }) => (
