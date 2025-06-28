@@ -1,4 +1,4 @@
-import React, { JSX } from "react";
+import React, { JSX, useEffect, useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeProdutos from "../screens/HomeProdutos";
 import { Feather } from "@expo/vector-icons";
@@ -6,7 +6,8 @@ import Avaliacoes from "../screens/Avaliacoes";
 import ListaDesejos from "../screens/ListaDesejos";
 import Login from "../screens/Login";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Alert, View } from "react-native";
+import { Alert, StyleSheet, View } from "react-native";
+import Splash from "../screens/Splash";
 
 const Tab = createBottomTabNavigator();
 
@@ -16,9 +17,18 @@ interface AppRouterProps {
 }
 
 export default function AppRouter({ isLoggedIn, setIsLoggedIn }: AppRouterProps): JSX.Element {
+
+  const [showSplash, setShowSplash] = useState(true);
+
+  //======= Executa o Splash primeiro ==============
+  if (showSplash) {
+    return <Splash onFinish={() => setShowSplash(false)} />
+  }
+
+  //====== Verifica se logado (verifica LocalStorage vazio) ======== 
   if (!isLoggedIn) {
     return (
-      <Tab.Navigator screenOptions={{ headerShown: false }}>
+      <Tab.Navigator screenOptions={{ headerShown: false, tabBarStyle:{display:'none'} }}>
         <Tab.Screen
           name="Login"
           options={{ tabBarButton: () => null }}
@@ -28,6 +38,8 @@ export default function AppRouter({ isLoggedIn, setIsLoggedIn }: AppRouterProps)
       </Tab.Navigator>
     );
   }
+
+  //===== pula direto para pagina inicial =============
   return (
       <Tab.Navigator
         initialRouteName="Produtos"
@@ -109,3 +121,9 @@ export default function AppRouter({ isLoggedIn, setIsLoggedIn }: AppRouterProps)
       </Tab.Navigator>
   );
 }
+
+const styles = StyleSheet.create({
+  loginTab:{
+    backgroundColor:'black',
+  }
+})
