@@ -15,7 +15,7 @@ export default function AppRouter() {
           tabBarActiveTintColor: "#6200ee",
         }}
       >
-
+        
         <Tab.Screen
           name="Produtos"
           component={HomeProdutos}
