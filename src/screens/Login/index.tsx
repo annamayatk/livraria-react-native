@@ -1,4 +1,4 @@
-import { View, Text, Alert, ImageBackground, Image, StatusBar, TouchableOpacity } from 'react-native'
+import { View, Text, ImageBackground, Image, StatusBar, TouchableOpacity } from 'react-native'
 import React, { JSX, useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { styles } from './styles';
@@ -6,7 +6,7 @@ import imgFundo from '../../img/Fundo.jpg'
 import imgLogin from '../../img/Login.png'
 import { TextInput } from 'react-native-paper';
 import ModalCadastro from '../../components/ModalCadastro';
-import { useNavigation } from '@react-navigation/native';
+import ModalAlert from '../../components/ModalAlert';
 
 interface Usuario{
     email:string;
@@ -21,8 +21,15 @@ export default function Login({ setIsLoggedIn }: LoginProps): JSX.Element {
 
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
-    const [modalVisible, setModalVisible] = useState<boolean>(false);
-    const navigation = useNavigation();
+    const [modalVisible, setModalVisible] = useState<boolean>(false); //modal de cadastro de novo usuário
+    const [alertVisible, setAlertVisible] = useState<boolean>(false); //modal de alerta
+    const [alertTexto, setAlertTexto] = useState<string>('');
+
+    //========= setup do modalAlert ========
+    const showAlert = (texto: string) => {
+        setAlertTexto(texto);
+        setAlertVisible(true);
+    }
 
     const handleLogin = async (): Promise<void> => {
         try{
@@ -36,15 +43,15 @@ export default function Login({ setIsLoggedIn }: LoginProps): JSX.Element {
 
             if(usuarioExistente){
                 await AsyncStorage.setItem('isLoggedIn', 'true');
-                Alert.alert('Login realizado com sucesso');
+                showAlert('Login realizado com sucesso');
                 setIsLoggedIn(true);
             } else {
-                Alert.alert('usuário ou senha inválido');
+                showAlert('usuário ou senha inválido');
                 setEmail('');
                 setPassword('');
             }
         } catch (error){
-            Alert.alert('Erro ao tentar logar');
+            showAlert('Erro ao tentar logar');
         }
     };
 
@@ -98,6 +105,12 @@ export default function Login({ setIsLoggedIn }: LoginProps): JSX.Element {
             <ModalCadastro
                 visible={modalVisible}
                 onClose={fecharModal}
+                />
+            
+            <ModalAlert
+                visible={alertVisible}
+                texto={alertTexto}
+                onClose={() => setAlertVisible(false)}
                 />
 
         </ImageBackground>

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Modal, View, Text, TouchableOpacity, Alert, StyleSheet } from 'react-native';
+import { Modal, View, Text, TouchableOpacity} from 'react-native';
 import { TextInput } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { styles } from './styles';
+import ModalAlert from '../ModalAlert';
 
 interface ModalCadastroProps {
     visible: boolean;
@@ -15,12 +16,25 @@ interface Usuario {
 }
 
 export default function ModalCadastro({ visible, onClose }: ModalCadastroProps) {
+
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+    const [alertVisible, setAlertVisible] = useState<boolean>(false);
+    const [alertMessage, setAlertMessage] = useState<string>('');
+
+    const showAlert = (message: string) => {
+        setAlertMessage(message);
+        setAlertVisible(true);
+    };
+
+    const closeAlert = () => {
+        setAlertVisible(false);
+        setAlertMessage('');
+    };
 
     const handleCadastro = async (): Promise<void> => {
         if (!email || !password) {
-            Alert.alert('Erro', 'Preencha todos os campos');
+            showAlert('Preencha todos os campos');
             return;
         }
 
@@ -32,7 +46,7 @@ export default function ModalCadastro({ visible, onClose }: ModalCadastroProps) 
             // Verificar se email já existe
             const emailExiste = usuarios.find(u => u.email === email);
             if (emailExiste) {
-                Alert.alert('Erro', 'Email já cadastrado');
+                showAlert('Email já cadastrado');
                 return;
             }
 
@@ -43,7 +57,7 @@ export default function ModalCadastro({ visible, onClose }: ModalCadastroProps) 
             // Salvar no AsyncStorage
             await AsyncStorage.setItem('usuarios', JSON.stringify(usuarios));
 
-            Alert.alert('Sucesso', 'Usuário cadastrado com sucesso');
+            showAlert('Usuário cadastrado com sucesso');
             
             // Limpar campos e fechar modal
             setEmail('');
@@ -51,7 +65,7 @@ export default function ModalCadastro({ visible, onClose }: ModalCadastroProps) 
             onClose();
 
         } catch (error) {
-            Alert.alert('Erro', 'Erro ao cadastrar usuário');
+            showAlert('Erro ao cadastrar usuário');
         }
     };
 
@@ -62,50 +76,57 @@ export default function ModalCadastro({ visible, onClose }: ModalCadastroProps) 
     };
 
     return (
-        <Modal
-            visible={visible}
-            transparent={true}
-            animationType="slide"
-        >
-            <View style={styles.modalOverlay}>
-                <View style={styles.modalContent}>
-                    <Text style={styles.modalTitle}>Novo Usuário</Text>
-                    
-                    <View style={styles.inputContainer}>
-                        <Text style={styles.label}>E-mail</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Digite o e-mail"
-                            value={email}
-                            onChangeText={setEmail}
-                            keyboardType="email-address"
-                            autoCapitalize="none"
-                        />
-                    </View>
-
-                    <View style={styles.inputContainer}>
-                        <Text style={styles.label}>Senha</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Digite a senha"
-                            value={password}
-                            onChangeText={setPassword}
-                            secureTextEntry
-                        />
-                    </View>
-
-                    <View style={styles.buttonContainer}>
-                        <TouchableOpacity style={styles.cancelButton} onPress={handleClose}>
-                            <Text style={styles.cancelButtonText}>Cancelar</Text>
-                        </TouchableOpacity>
+        <>
+            <Modal
+                visible={visible}
+                transparent={true}
+                animationType="slide"
+            >
+                <View style={styles.modalOverlay}>
+                    <View style={styles.modalContent}>
+                        <Text style={styles.modalTitle}>Novo Usuário</Text>
                         
-                        <TouchableOpacity style={styles.saveButton} onPress={handleCadastro}>
-                            <Text style={styles.saveButtonText}>Cadastrar</Text>
-                        </TouchableOpacity>
+                        <View style={styles.inputContainer}>
+                            <Text style={styles.label}>E-mail</Text>
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Digite o e-mail"
+                                value={email}
+                                onChangeText={setEmail}
+                                keyboardType="email-address"
+                                autoCapitalize="none"
+                            />
+                        </View>
+
+                        <View style={styles.inputContainer}>
+                            <Text style={styles.label}>Senha</Text>
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Digite a senha"
+                                value={password}
+                                onChangeText={setPassword}
+                                secureTextEntry
+                            />
+                        </View>
+
+                        <View style={styles.buttonContainer}>
+                            <TouchableOpacity style={styles.cancelButton} onPress={handleClose}>
+                                <Text style={styles.cancelButtonText}>Cancelar</Text>
+                            </TouchableOpacity>
+                            
+                            <TouchableOpacity style={styles.saveButton} onPress={handleCadastro}>
+                                <Text style={styles.saveButtonText}>Cadastrar</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
-            </View>
-        </Modal>
+            </Modal>
+            <ModalAlert
+                    visible={alertVisible}
+                    texto={alertMessage}
+                    onClose={closeAlert}
+                />
+        </>
     );
 }
 
