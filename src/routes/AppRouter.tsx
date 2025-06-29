@@ -1,12 +1,12 @@
-import React, { JSX, useEffect, useState } from "react";
+import React, { JSX, useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeProdutos from "../screens/HomeProdutos";
 import { Feather } from "@expo/vector-icons";
 import Avaliacoes from "../screens/Avaliacoes";
 import ListaDesejos from "../screens/ListaDesejos";
 import Login from "../screens/Login";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Alert, StyleSheet, View } from "react-native";
+import { View } from "react-native";
+import ModalLogout from "../components/ModalLogout";
 import Splash from "../screens/Splash";
 
 const Tab = createBottomTabNavigator();
@@ -19,6 +19,7 @@ interface AppRouterProps {
 export default function AppRouter({ isLoggedIn, setIsLoggedIn }: AppRouterProps): JSX.Element {
 
   const [showSplash, setShowSplash] = useState(true);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   //======= Executa o Splash primeiro ==============
   if (showSplash) {
@@ -41,6 +42,7 @@ export default function AppRouter({ isLoggedIn, setIsLoggedIn }: AppRouterProps)
 
   //===== pula direto para pagina inicial =============
   return (
+    <>
       <Tab.Navigator
         initialRouteName="Produtos"
         screenOptions={{
@@ -90,27 +92,8 @@ export default function AppRouter({ isLoggedIn, setIsLoggedIn }: AppRouterProps)
             tabPress: (e) => {
               // Previne a navegação
               e.preventDefault();
-              
-              // Executa o logout diretamente
-              Alert.alert(
-                'Confirmar Logout',
-                'Tem certeza que deseja sair?',
-                [
-                  { text: 'Cancelar', style: 'cancel' },
-                  {
-                    text: 'Sair',
-                    style: 'destructive',
-                    onPress: async () => {
-                      try {
-                        await AsyncStorage.removeItem('isLoggedIn');
-                        setIsLoggedIn(false);
-                      } catch (error) {
-                        Alert.alert('Erro ao fazer logout');
-                      }
-                    },
-                  },
-                ]
-              );
+              // Executa o modal de logout
+              setShowLogoutModal(true);
             },
           }}
         >
@@ -119,11 +102,12 @@ export default function AppRouter({ isLoggedIn, setIsLoggedIn }: AppRouterProps)
         </Tab.Screen>
 
       </Tab.Navigator>
+
+      <ModalLogout
+        visible={showLogoutModal}
+        onClose={() => setShowLogoutModal(false)}
+        setIsLoggedIn={setIsLoggedIn}
+      />
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  loginTab:{
-    backgroundColor:'black',
-  }
-})
