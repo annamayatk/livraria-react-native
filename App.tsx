@@ -1,8 +1,8 @@
-import React, { useState, useEffect, JSX } from "react"; 
+import { useState, useEffect, JSX } from "react"; 
 import AppRouter from "./src/routes/AppRouter";
 import { NavigationContainer } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage'; 
-import Login from "./src/screens/Login";
+import MonitorConexao from './src/components/MonitorConexao/MonitorConexao'
 
 export default function App(): JSX.Element {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -25,6 +25,7 @@ export default function App(): JSX.Element {
   return (
     <NavigationContainer>
       <AppRouter isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+      <MonitorConexao />
     </NavigationContainer>
   );
 }
