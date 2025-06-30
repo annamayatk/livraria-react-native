@@ -9,7 +9,7 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
-import { buscarLivrosPorNome } from "../api/avaliacoes";
+import { buscarLivrosPortugues } from "../api/avaliacoes";
 
 interface Livro {
   id: number;
@@ -37,7 +37,7 @@ export default function FormularioAvaliacao({ onEnviar }: Props) {
 
   useEffect(() => {
     if (termoBusca.length >= 3) {
-      buscarLivrosPorNome(termoBusca).then(setLivros);
+      buscarLivrosPortugues(termoBusca).then(setLivros);
     } else {
       setLivros([]);
     }

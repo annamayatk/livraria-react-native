@@ -5,7 +5,7 @@ interface Livro {
   imagem: string;
 }
 
-export function buscarLivrosPorNome(nome: string): Promise<Livro[]> {
+export function buscarLivrosPortugues(nome: string): Promise<Livro[]> {
   return fetch(`https://openlibrary.org/search.json?title=${encodeURIComponent(nome)}&language=por&limit=20`)
     .then((resposta) => resposta.json())
     .then((dados) => {

@@ -19,7 +19,6 @@ export default function Avaliacoes() {
 
   const CHAVE_STORAGE = "@avaliacoes_livraria";
 
-  // Carrega as avaliações salvas
   const carregarAvaliacoes = async () => {
     try {
       const json = await AsyncStorage.getItem(CHAVE_STORAGE);
@@ -65,7 +64,7 @@ export default function Avaliacoes() {
   }, []);
 
   return (
-    <View style={styles.card}>
+      <View style={styles.card}>
       <FormularioAvaliacao onEnviar={adicionarAvaliacao} />
       <FlatList
         data={avaliacoes}
