@@ -14,11 +14,7 @@ export default function ModalAlert({visible, texto, onClose}:{
             visible={visible}
             onRequestClose={onClose}
             >
-                {/* <TouchableWithoutFeedback onPress={onClose}> */}
-
                     <View style={styles.overlay}>
-
-                        {/* <TouchableWithoutFeedback> */}
 
                             <View style={styles.modalContainer}>
                                 
@@ -32,9 +28,7 @@ export default function ModalAlert({visible, texto, onClose}:{
                                 </View>
 
                             </View>
-                        {/* </TouchableWithoutFeedback> */}
                     </View>
-                {/* </TouchableWithoutFeedback> */}
         </Modal>
     );
 }

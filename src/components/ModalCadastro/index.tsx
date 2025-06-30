@@ -11,12 +11,14 @@ interface ModalCadastroProps {
 }
 
 interface Usuario {
+    nome: string;
     email: string;
     senha: string;
 }
 
 export default function ModalCadastro({ visible, onClose }: ModalCadastroProps) {
 
+    const [nome, setNome] =useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [alertVisible, setAlertVisible] = useState<boolean>(false);
@@ -33,7 +35,7 @@ export default function ModalCadastro({ visible, onClose }: ModalCadastroProps) 
     };
 
     const handleCadastro = async (): Promise<void> => {
-        if (!email || !password) {
+        if (!nome || !email || !password) {
             showAlert('Preencha todos os campos');
             return;
         }
@@ -51,7 +53,7 @@ export default function ModalCadastro({ visible, onClose }: ModalCadastroProps) 
             }
 
             // Adicionar novo usuário
-            const novoUsuario: Usuario = { email, senha: password };
+            const novoUsuario: Usuario = { nome, email, senha: password };
             usuarios.push(novoUsuario);
 
             // Salvar no AsyncStorage
@@ -60,6 +62,7 @@ export default function ModalCadastro({ visible, onClose }: ModalCadastroProps) 
             showAlert('Usuário cadastrado com sucesso');
             
             // Limpar campos e fechar modal
+            setNome('');
             setEmail('');
             setPassword('');
             onClose();
@@ -70,6 +73,7 @@ export default function ModalCadastro({ visible, onClose }: ModalCadastroProps) 
     };
 
     const handleClose = (): void => {
+        setNome('');
         setEmail('');
         setPassword('');
         onClose();
@@ -86,6 +90,18 @@ export default function ModalCadastro({ visible, onClose }: ModalCadastroProps) 
                     <View style={styles.modalContent}>
                         <Text style={styles.modalTitle}>Novo Usuário</Text>
                         
+                        <View style={styles.inputContainer}>
+                            <Text style={styles.label}>Nome</Text>
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Digite o nome"
+                                value={nome}
+                                onChangeText={setNome}
+                                keyboardType='default'
+                                autoCapitalize="none"
+                            />
+                        </View>
+
                         <View style={styles.inputContainer}>
                             <Text style={styles.label}>E-mail</Text>
                             <TextInput
