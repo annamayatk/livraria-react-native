@@ -37,10 +37,13 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     elevation: 2,
   },
-  imagem: {
-    width: "100%",
-    height: 180,
-  },
+ imagem: {
+  width: "100%",
+  height: 260,
+  resizeMode: "contain",
+  backgroundColor: "#eee",
+},
+
   info: {
     padding: 12,
   },
