@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { buscarLivrosPortugues } from "../api/avaliacoes";
 
+
 interface Livro {
   id: number;
   nome: string;
@@ -21,20 +22,20 @@ interface Livro {
 interface Props {
   onEnviar: (dados: {
     usuario: string;
+    livro: string;
     comentario: string;
     nota: number;
-    livro: string;
   }) => void;
 }
 
 export default function FormularioAvaliacao({ onEnviar }: Props) {
   const [usuario, setUsuario] = useState("");
-  const [comentario, setComentario] = useState("");
-  const [nota, setNota] = useState("5");
   const [termoBusca, setTermoBusca] = useState("");
   const [livros, setLivros] = useState<Livro[]>([]);
   const [livroSelecionado, setLivroSelecionado] = useState("");
-
+  const [comentario, setComentario] = useState("");
+  const [nota, setNota] = useState("5");
+  
   useEffect(() => {
     if (termoBusca.length >= 3) {
       buscarLivrosPortugues(termoBusca).then(setLivros);
@@ -57,79 +58,85 @@ export default function FormularioAvaliacao({ onEnviar }: Props) {
 
     onEnviar({
       usuario,
+      livro: livroSelecionado,
       comentario,
       nota: notaConvertida,
-      livro: livroSelecionado,
+      
     });
 
     setUsuario("");
-    setComentario("");
-    setNota("5");
     setTermoBusca("");
     setLivroSelecionado("");
     setLivros([]);
+    setComentario("");
+    setNota("5");
+    
   }
 
   return (
-    <View style={estilos.container}>
-      <TextInput
-        style={estilos.input}
-        placeholder="Seu nome"
-        value={usuario}
-        onChangeText={setUsuario}
-      />
-
-      <TextInput
-        style={estilos.input}
-        placeholder="Comentário"
-        value={comentario}
-        onChangeText={setComentario}
-        multiline
-      />
-
-      <TextInput
-        style={estilos.input}
-        placeholder="Nota (1 a 5)"
-        keyboardType="numeric"
-        value={nota}
-        onChangeText={setNota}
-      />
-
-      <TextInput
-        style={estilos.input}
-        placeholder="Buscar livro por nome"
-        value={termoBusca}
-        onChangeText={setTermoBusca}
-      />
-
-      {termoBusca.length >= 3 && !livroSelecionado && (
-        <FlatList
-          data={livros}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              style={estilos.livroItem}
-              onPress={() => {
-                setLivroSelecionado(item.nome);
-                setTermoBusca(item.nome);
-                setLivros([]); 
-              }}
-            >
-              <Text>{item.nome}</Text>
-            </TouchableOpacity>
-          )}
-        />
-      )}
-
-      {livroSelecionado ? (
-        <Text style={estilos.livroSelecionado}>
-          Livro selecionado: {livroSelecionado}
-        </Text>
-      ) : null}
-
-      <Button title="Enviar Avaliação" onPress={enviarAvaliacao} />
+  <View style={estilos.container}>
+    <View style={estilos.caixaTitulo}>
+    <Text style={estilos.titulo}>Compartilhe sua experiência literária 📖 </Text>
     </View>
-  );
+
+    <TextInput
+      style={estilos.input}
+      placeholder="Seu nome"
+      value={usuario}
+      onChangeText={setUsuario}
+    />
+
+    <TextInput
+      style={estilos.input}
+      placeholder="Buscar livro por nome"
+      value={termoBusca}
+      onChangeText={setTermoBusca}
+    />
+
+    {termoBusca.length >= 3 && !livroSelecionado && (
+      <FlatList
+        data={livros}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            style={estilos.livroItem}
+            onPress={() => {
+              setLivroSelecionado(item.nome);
+              setTermoBusca(item.nome);
+              setLivros([]);
+            }}
+          >
+            <Text>{item.nome}</Text>
+          </TouchableOpacity>
+        )}
+      />
+    )}
+
+    {livroSelecionado ? (
+      <Text style={estilos.livroSelecionado}>
+        Livro selecionado: {livroSelecionado}
+      </Text>
+    ) : null}
+
+    <TextInput
+      style={estilos.input}
+      placeholder="Comentário"
+      value={comentario}
+      onChangeText={setComentario}
+      multiline
+    />
+
+    <TextInput
+      style={estilos.input}
+      placeholder="Nota (1 a 5)"
+      keyboardType="numeric"
+      value={nota}
+      onChangeText={setNota}
+    />
+
+    <Button title="Enviar Avaliação" onPress={enviarAvaliacao} />
+  </View>
+);
 }
 
 const estilos = StyleSheet.create({
@@ -154,4 +161,20 @@ const estilos = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 10,
   },
+  titulo: {
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 20,
+  },
+  caixaTitulo: {
+  backgroundColor: "#FFE0B2",
+  padding: 10,
+  borderRadius: 10,
+  borderWidth: 1,
+  borderColor: "#FFB74D", 
+  marginBottom: 20,
+  alignItems: "center",
+},
+
 });
