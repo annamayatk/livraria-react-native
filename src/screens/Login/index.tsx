@@ -44,6 +44,8 @@ export default function Login({ setIsLoggedIn }: LoginProps): JSX.Element {
 
             if(usuarioExistente){
                 await AsyncStorage.setItem('isLoggedIn', 'true');
+                await AsyncStorage.setItem('usuarioLogado', usuarioExistente.email);
+                await AsyncStorage.setItem('nomeLogado', usuarioExistente.nome);
                 showAlert('Login realizado com sucesso');
                 setIsLoggedIn(true);
             } else {

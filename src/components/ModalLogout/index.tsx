@@ -14,6 +14,8 @@ export default function ModalLogout({visible, onClose, setIsLoggedIn}:ModalLogou
     const handleLogout = async () => {
         try{
             await AsyncStorage.removeItem('isLoggedIn');
+            await AsyncStorage.removeItem('usuarioLogado');
+            await AsyncStorage.removeItem('nomeLogado');
             setIsLoggedIn(false);
             onClose();
         } catch (error){
