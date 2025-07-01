@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity, Share } from "react-native";
 import { adicionarDesejo } from "../api/listaDesejos";
 
 interface Produto {
@@ -14,6 +14,18 @@ interface Props {
 }
 
 export default function CardProduto({ produto }: Props) {
+  const compartilharProduto = async () => {
+    try {
+      await Share.share({
+        message: `Confira este produto: ${produto.nome} de ${produto.autor}!`,
+        url: produto.imagem,
+        title: produto.nome,
+      });
+    } catch (error) {
+      alert("Erro ao compartilhar: " + error.message);
+    }
+  };
+
   return (
     <View style={styles.card}>
       <Image source={{ uri: produto.imagem }} style={styles.imagem} />
@@ -23,9 +35,15 @@ export default function CardProduto({ produto }: Props) {
         <Text style={styles.autor}>{produto.autor}</Text>
       </View>
 
-      <TouchableOpacity style={styles.botao} onPress={() => adicionarDesejo(produto)}> 
-        <Text style={styles.botaoTexto}>ADICIONAR À LISTA DE DESEJOS ❤️</Text>
-      </TouchableOpacity>
+      <View style={styles.botoesContainer}>
+        <TouchableOpacity style={styles.botao} onPress={() => adicionarDesejo(produto)}>
+          <Text style={styles.botaoTexto}>ADICIONAR À LISTA DE DESEJOS ❤️</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[styles.botao, styles.botaoCompartilhar]} onPress={compartilharProduto}>
+          <Text style={styles.botaoTexto}>COMPARTILHAR 🔗</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -38,12 +56,12 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     elevation: 2,
   },
- imagem: {
-  width: "100%",
-  height: 260,
-  resizeMode: "contain",
-  backgroundColor: "#eee",
-},
+  imagem: {
+    width: "100%",
+    height: 260,
+    resizeMode: "contain",
+    backgroundColor: "#eee",
+  },
 
   info: {
     padding: 12,
@@ -57,12 +75,26 @@ const styles = StyleSheet.create({
     color: "#666",
     marginTop: 4,
   },
+
+  botoesContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+
   botao: {
+    flex: 1,
     backgroundColor: "#F57C00",
     padding: 10,
     alignItems: "center",
+    marginHorizontal: 5,
+    borderRadius: 4,
   },
+  botaoCompartilhar: {
+    backgroundColor: "#4CAF50", 
+  },
+
   botaoTexto: {
     color: "#fff",
+    fontWeight: "bold",
   },
 });
