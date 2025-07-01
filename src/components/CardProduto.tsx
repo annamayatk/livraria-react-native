@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { adicionarDesejo } from "../api/listaDesejos";
 
 interface Produto {
   id: number;
@@ -22,7 +23,7 @@ export default function CardProduto({ produto }: Props) {
         <Text style={styles.autor}>{produto.autor}</Text>
       </View>
 
-      <TouchableOpacity style={styles.botao}>
+      <TouchableOpacity style={styles.botao} onPress={() => adicionarDesejo(produto)}> 
         <Text style={styles.botaoTexto}>ADICIONAR À LISTA DE DESEJOS ❤️</Text>
       </TouchableOpacity>
     </View>
