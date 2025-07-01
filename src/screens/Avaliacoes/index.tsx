@@ -41,9 +41,10 @@ export default function Avaliacoes() {
 
   const adicionarAvaliacao = (dados: {
     usuario: string;
+    livro: string;
     comentario: string;
     nota: number;
-    livro: string;
+    
   }) => {
     const nova: Avaliacao = {
       id: Date.now().toString(),
