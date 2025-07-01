@@ -23,7 +23,7 @@ export default function AppRouter({ isLoggedIn, setIsLoggedIn }: AppRouterProps)
 
   //======= Executa o Splash primeiro ==============
   if (showSplash) {
-    return <Splash onFinish={() => setShowSplash(false)} />
+    return <Splash inicial={() => setShowSplash(false)} />
   }
 
   //====== Verifica se logado (verifica LocalStorage vazio) ======== 
