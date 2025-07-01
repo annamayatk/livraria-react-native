@@ -7,6 +7,7 @@ import imgLogin from '../../img/Login.png'
 import { TextInput } from 'react-native-paper';
 import ModalCadastro from '../../components/ModalCadastro';
 import ModalAlert from '../../components/ModalAlert';
+import TextMove from '../../components/TextMove';
 
 interface Usuario{
     email:string;
@@ -65,8 +66,8 @@ export default function Login({ setIsLoggedIn }: LoginProps): JSX.Element {
 
     return (
         <ImageBackground source={imgFundo} style={styles.imgFundo}>
-            <StatusBar/>
-            {/* colocar aqui a animação */}
+            {/* <TextMove textoMove='Teste'/> */}
+            
             <View style={styles.container}>
                 <Image source={imgLogin} style={styles.img} resizeMode='contain'/>
             </View>

@@ -4,14 +4,14 @@ import { styles } from './style';
 import LottieView from 'lottie-react-native';
 
 interface SplashProps {
-    onFinish:() => void;
+    inicial:() => void;
 }
 
-export default function Splash({onFinish}:SplashProps) {
+export default function Splash({inicial}:SplashProps) {
 
     useEffect(()=> {
         const timer = setTimeout(() => {
-        onFinish();
+        inicial();
         }, 5000);
 
         return () => clearTimeout(timer);
