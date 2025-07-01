@@ -9,7 +9,10 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo/metro-runtime": "~5.0.4",
     "@react-native-async-storage/async-storage": "2.1.2",
+    "@react-native-community/netinfo": "11.4.1",
+    "@react-native-picker/picker": "2.11.1",
     "@react-navigation/bottom-tabs": "^7.4.2",
     "@react-navigation/native": "^7.1.14",
     "axios": "^1.10.0",
@@ -17,15 +20,12 @@
     "expo-status-bar": "~2.2.3",
     "lottie-react-native": "7.2.2",
     "react": "19.0.0",
+    "react-dom": "19.0.0",
     "react-native": "0.79.4",
     "react-native-paper": "^5.14.5",
     "react-native-safe-area-context": "5.4.0",
-    "@react-native-picker/picker": "2.11.1",
-    "react-dom": "19.0.0",
-    "react-native-web": "^0.20.0",
-    "@expo/metro-runtime": "~5.0.4",
-    "@react-native-community/netinfo": "11.4.1"
-
+    "react-native-star-rating-widget": "^1.9.2",
+    "react-native-web": "^0.20.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
