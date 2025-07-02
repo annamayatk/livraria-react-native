@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 5,
     marginBottom: 10,
-    color: 'blue'
+    color: '#F57C00'
   },
   card: {
     flexDirection: 'row',

@@ -25,15 +25,16 @@ export default function HomeProdutos() {
   }, []);
 
   return (
-   
-    <View style={styles.container}>
-       <TextMove textoMove='Leia autores brasileiros, valorize a cultura'/>
-      <FlatList
-        data={produtos}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => <CardProduto produto={item} />}
-        contentContainerStyle={{ paddingBottom: 100 }}
-      />
-    </View>
+    <>
+      <TextMove textoMove='Valorize a Literatura Brasileira - Leia'/>
+      <View style={styles.container}>
+        <FlatList
+          data={produtos}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => <CardProduto produto={item} />}
+          contentContainerStyle={{ paddingBottom: 100 }}
+        />
+      </View>
+    </>
   );
 }
