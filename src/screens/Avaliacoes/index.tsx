@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { View, FlatList } from "react-native";
+import { View, FlatList, ScrollView } from "react-native";
 import { styles } from "./style";
 import FormularioAvaliacao from "../../components/FormularioAvaliacao";
 import AvaliacaoCard from "../../components/AvaliacaoCard";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import TextMove from '../../components/TextMove';
+import { SafeAreaView } from "react-native-safe-area-context";
 
 interface Avaliacao {
   id: string;
@@ -67,17 +68,22 @@ export default function Avaliacoes() {
 
   return (
       
-  <View>
-  <TextMove textoMove='"Ler é viajar sem sair do lugar."'/>
-      <View style={styles.card}>
+  <SafeAreaView style={{flex:1}}>
+    <TextMove textoMove='"Ler é viajar sem sair do lugar."'/>
+    <View style={styles.card}>
+      
       <FormularioAvaliacao onEnviar={adicionarAvaliacao} />
-      <FlatList
-        data={avaliacoes}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <AvaliacaoCard avaliacao={item} />}
-        contentContainerStyle={{ paddingBottom: 100 }}
-      />
+      
+        <FlatList
+          data={avaliacoes}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => <AvaliacaoCard avaliacao={item} />}
+          ItemSeparatorComponent={() => (
+            <View style={styles.separador}/>
+          )}
+        />
+      
     </View>
-  </View>
+  </SafeAreaView>
   );
 }

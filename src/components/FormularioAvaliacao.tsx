@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { buscarLivrosPortugues } from "../api/avaliacoes";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 interface Livro {
@@ -44,6 +45,17 @@ export default function FormularioAvaliacao({ onEnviar }: Props) {
     }
   }, [termoBusca]);
 
+  useEffect(() => {
+  const carregarNomeUsuario = async () => {
+    const nomeSalvo = await AsyncStorage.getItem("nomeLogado");
+    if (nomeSalvo) {
+      setUsuario(nomeSalvo);
+    }
+  };
+
+  carregarNomeUsuario();
+}, []);
+
   function enviarAvaliacao() {
     if (!usuario || !comentario || !nota || !livroSelecionado) {
       Alert.alert("Preencha todos os campos.");
@@ -75,8 +87,9 @@ export default function FormularioAvaliacao({ onEnviar }: Props) {
 
   return (
   <View style={estilos.container}>
+    
     <View style={estilos.caixaTitulo}>
-    <Text style={estilos.titulo}>Compartilhe sua experiência literária 📖 </Text>
+      <Text style={estilos.titulo}>Compartilhe sua experiência literária 📖 </Text>
     </View>
 
     <TextInput
@@ -84,6 +97,7 @@ export default function FormularioAvaliacao({ onEnviar }: Props) {
       placeholder="Seu nome"
       value={usuario}
       onChangeText={setUsuario}
+      editable={false}
     />
 
     <TextInput
@@ -165,16 +179,17 @@ const estilos = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     textAlign: "center",
-    marginBottom: 20,
   },
   caixaTitulo: {
-  backgroundColor: "#FFE0B2",
-  padding: 10,
-  borderRadius: 10,
-  borderWidth: 1,
-  borderColor: "#FFB74D", 
-  marginBottom: 20,
-  alignItems: "center",
+    height:60,
+    backgroundColor: "#FFF3E0",
+    padding: 10,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#FFB74D", 
+    marginBottom: 15,
+    alignItems: "center",
+    justifyContent:"center",
 },
   botao:{
     backgroundColor:'#F57C00'

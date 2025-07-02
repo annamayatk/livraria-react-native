@@ -46,6 +46,10 @@ export default function AppRouter({ isLoggedIn, setIsLoggedIn }: AppRouterProps)
       <Tab.Navigator
         initialRouteName="Produtos"
         screenOptions={{
+          tabBarStyle:{
+            borderTopWidth:1,
+            borderColor: 'orange'
+          },
           headerShown: false,
           tabBarActiveTintColor: "#F57C00",
         }}

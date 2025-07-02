@@ -37,7 +37,7 @@ export default function ModalLogout({visible, onClose, setIsLoggedIn}:ModalLogou
                         <Text style={styles.message}>Fica mais um pouquinho...</Text>
                         
                         <View style={styles.buttonContainer}>
-                            <TouchableOpacity style={[styles.button,styles.cancelButton]} onPress={onClose}>
+                            <TouchableOpacity style={[styles.button,styles.cancelButton,{backgroundColor:'orange'}]} onPress={onClose}>
                                 <Text style={styles.cancelButtonText}>Continuar...</Text>
                             </TouchableOpacity>
 

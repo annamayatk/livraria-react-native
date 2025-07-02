@@ -2,11 +2,16 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   card: {
+    flex:1,
     backgroundColor: "#fff",
     padding: 16,
-    marginVertical: 8,
+    marginVertical: 2,
     borderRadius: 8,
-    elevation: 3,
+  },
+  separador:{
+    height:1,
+    backgroundColor:'orange',
+    marginVertical:2,
   },
   titulo: {
     fontSize: 16,
@@ -27,4 +32,5 @@ export const styles = StyleSheet.create({
     color: "#999",
     textAlign: "right",
   },
+
 });
