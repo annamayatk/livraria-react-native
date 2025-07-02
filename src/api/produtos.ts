@@ -15,7 +15,6 @@ export async function buscarLivrosPortugues() {
     "ariano suassuna",
     "conceição evaristo",
     "rubem fonseca",
-    "paulo freire",
     "fernando sabino",
     "luiz ruffato",
     "chico buarque",
@@ -24,7 +23,8 @@ export async function buscarLivrosPortugues() {
     "milton hatoum",
     "marçal aquino",
     "augusto cury",
-    "paulo coelho"
+    "nelson rodrigues",
+    "leandro karnal",
   ];
 
   try {
