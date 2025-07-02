@@ -1,6 +1,8 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity, Share } from "react-native";
 import { adicionarDesejo } from "../api/listaDesejos";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 interface Produto {
   id: number;
@@ -22,7 +24,7 @@ export default function CardProduto({ produto }: Props) {
         title: produto.nome,
       });
     } catch (error) {
-      alert("Erro ao compartilhar: " + error.message);
+      alert("Erro ao compartilhar: " + error);
     }
   };
 
@@ -36,7 +38,16 @@ export default function CardProduto({ produto }: Props) {
       </View>
 
       <View style={styles.botoesContainer}>
-        <TouchableOpacity style={styles.botao} onPress={() => adicionarDesejo(produto)}>
+        <TouchableOpacity 
+          style={styles.botao} 
+          onPress={async () => {
+            const email = await AsyncStorage.getItem("usuarioLogado");
+              if (email) {
+                await adicionarDesejo(produto, email);
+              } else {
+                console.log("Usuário não logado.");
+              }
+            }}> 
           <Text style={styles.botaoTexto}>ADICIONAR À LISTA DE DESEJOS ❤️</Text>
         </TouchableOpacity>
 
@@ -44,6 +55,7 @@ export default function CardProduto({ produto }: Props) {
           <Text style={styles.botaoTexto}>COMPARTILHAR 🔗</Text>
         </TouchableOpacity>
       </View>
+
     </View>
   );
 }

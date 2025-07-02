@@ -10,7 +10,15 @@ export const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginVertical: 20,
+    marginTop: 20,
+  },
+  subtitulo: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginTop: 5,
+    marginBottom: 10,
+    color: 'blue'
   },
   card: {
     flexDirection: 'row',
