@@ -4,6 +4,7 @@ import { styles } from "./style";
 import FormularioAvaliacao from "../../components/FormularioAvaliacao";
 import AvaliacaoCard from "../../components/AvaliacaoCard";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import TextMove from '../../components/TextMove';
 
 interface Avaliacao {
   id: string;
@@ -65,6 +66,9 @@ export default function Avaliacoes() {
   }, []);
 
   return (
+      
+  <View>
+  <TextMove textoMove='"Ler é viajar sem sair do lugar."'/>
       <View style={styles.card}>
       <FormularioAvaliacao onEnviar={adicionarAvaliacao} />
       <FlatList
@@ -74,5 +78,6 @@ export default function Avaliacoes() {
         contentContainerStyle={{ paddingBottom: 100 }}
       />
     </View>
+  </View>
   );
 }
