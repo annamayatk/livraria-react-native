@@ -18,7 +18,7 @@ export default function ModalAlert({visible, texto, onClose}:{
 
                             <View style={styles.modalContainer}>
                                 
-                                <Text style={styles.title}>Atenção!!!</Text>
+                                <Text style={styles.title}>Importante!!!</Text>
                                 <Text style={styles.message}>{texto}</Text>
                                 
                                 <View style={styles.buttonContainer}>

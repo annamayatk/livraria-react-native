@@ -32,7 +32,6 @@ export default function HomeProdutos() {
           data={produtos}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => <CardProduto produto={item} />}
-          contentContainerStyle={{ paddingBottom: 100 }}
         />
       </View>
     </>
