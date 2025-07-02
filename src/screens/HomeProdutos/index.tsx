@@ -3,6 +3,7 @@ import { View, FlatList } from "react-native";
 import { styles } from "./style";
 import CardProduto from "../../components/CardProduto";
 import { buscarLivrosPortugues } from "../../api/produtos"; 
+import TextMove from "../../components/TextMove";
 
 interface Produto {
   id: number;
@@ -24,7 +25,9 @@ export default function HomeProdutos() {
   }, []);
 
   return (
+   
     <View style={styles.container}>
+       <TextMove textoMove='Leia autores brasileiros, valorize a cultura'/>
       <FlatList
         data={produtos}
         keyExtractor={(item) => item.id.toString()}
