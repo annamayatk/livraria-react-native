@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
         width: '100%',
         height: 30,
         justifyContent: "center",
-        backgroundColor: 'rgba(255, 255, 255, 0.2)',
+        backgroundColor: '#F57C00',
     },
     text:{
         fontSize:18,

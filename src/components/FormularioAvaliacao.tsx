@@ -134,7 +134,7 @@ export default function FormularioAvaliacao({ onEnviar }: Props) {
       onChangeText={setNota}
     />
 
-    <Button title="Enviar Avaliação" onPress={enviarAvaliacao} />
+    <Button title="Enviar Avaliação" onPress={enviarAvaliacao} color='#F57C00'/>
   </View>
 );
 }
@@ -176,5 +176,8 @@ const estilos = StyleSheet.create({
   marginBottom: 20,
   alignItems: "center",
 },
+  botao:{
+    backgroundColor:'#F57C00'
+  }
 
 });

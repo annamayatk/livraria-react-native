@@ -47,7 +47,7 @@ export default function AppRouter({ isLoggedIn, setIsLoggedIn }: AppRouterProps)
         initialRouteName="Produtos"
         screenOptions={{
           headerShown: false,
-          tabBarActiveTintColor: "#6200ee",
+          tabBarActiveTintColor: "#F57C00",
         }}
       >
         
